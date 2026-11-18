@@ -101,11 +101,13 @@ AGED 不升级、基线三事件（NEW/GONE/RETARGET）、watch 两轮、演示�
 5. **max_scan 双计数**——生成器与消费方各记一遍导致截断判定失真。修：scan() 独家管理。
 6. **signature 键是绝对路径**——测试里用 basename 取键直接 KeyError。
 7. **基线换绑要先摘旧链**——`os.symlink` 不覆盖已存在目标（FileExistsError）。
+8. **TEMP 是上下文判定**——demo 沙箱建在 /tmp 下导致全员误挂 TEMP。「指向临时区」
+   只在目标位于扫描根之外时才有意义（与 ESCAPE 同一哲学：离开辖区才算越界）。
 
 ## 演示（确定性沙箱）
 
 ```bash
-python3 linklens.py demo            # 9 条链接覆盖全部状态，跑完自动清理
+python3 linklens.py demo            # 59 条链接（含 50 跳深链）覆盖全部状态，跑完自动清理
 python3 linklens.py demo --keep     # 保留沙箱供检查
 ```
 

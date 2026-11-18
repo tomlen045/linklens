@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - AGED 单独存在不参与分级（Homebrew 28030 条误报教训）
 - SCOPE 判定升到路径组件级（/opt/homebrew/etc 不再误伤 /etc）
 - 新增 KERNELCAP：跳数≥32 内核必 ELOOP，逻辑可解≠能打开
+- TEMP 改上下文判定：仅当目标在扫描根之外（demo 沙箱在 /tmp 下全员误挂的教训）
 - max_scan 截断计数归 scan() 独家管理
 - 自测内 signature 键名/换绑前摘链两处 fixture 错误
 

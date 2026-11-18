@@ -170,8 +170,10 @@ def classify(link_path, root, opts=None, now=None):
 
     resolved = final if os.path.isabs(final) else norm_target(raw, os.path.dirname(link_path))
 
-    if any(os.path.normpath(resolved).startswith(r) for r in TEMP_ROOTS):
-        tags.append("TEMP")
+    inside_root = any(_under(resolved, r) for r in
+                      (root if isinstance(root, (list, tuple)) else ([root] if root else [])) if r)
+    if not inside_root and any(os.path.normpath(resolved).startswith(r) for r in TEMP_ROOTS):
+        tags.append("TEMP")  # 仅当目标在扫描根之外时才算「指向临时区」
     if is_scope_target(resolved):
         tags.append("SCOPE")
 
